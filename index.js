@@ -4,7 +4,6 @@ const axios = require('axios').default;
 
 const app = express();
 
-app.use(router);
 
 router.get("/", async (req, res) => {
   let response;
@@ -20,5 +19,7 @@ router.get("/", async (req, res) => {
 
   res.json(response.data);
 });
+
+app.use(router);
 
 app.listen(3000);
