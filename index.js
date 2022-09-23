@@ -1,30 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
-const { pipeline } = require('stream');
+const axios = require('axios').default;
 
 const app = express();
 
-app.set("view engine", "ejs");
+app.use(router);
 
-app.get("/", (req, res) => {
- //  try {
- //    const apiURL = "https://breakingbadapi.com/api/characters";
- //    const response = await axios.get(apiURL);
- //    const data = await response.json();
- //    console.log(response);
- //  }
- // catch (err) {
- //    dateTimeOutput.innerText =  
- //      "Some error has occured, please try again later!";
- //  }
- //  pipeline(response, res, (err) => {
- //      if (err) {
- //          console.log(err);
- //          res.sendStatus(500);
- //      }
- //  });
-  res.render("index");
+router.get("/", async (req, res) => {
+  let response;
+  const apiURL = "https://breakingbadapi.com/api/characters";
+
+  try {
+    response = await axios.get(apiURL);
+    // console.log(response.data);
+  }
+  catch (err) {
+    res.send("Some error has occured, please try again later!");
+  }
+
+  res.json(response.data);
 });
 
 app.listen(3000);
